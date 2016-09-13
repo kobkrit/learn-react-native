@@ -9,8 +9,8 @@
 // import a from './alignSelf.js';
 // import a from './basicCSS.js';
 // import a from './exercise1.js';
-// import a from './exercise2.js';
+import a from './exercise2.js';
 // import a from './exercise3.js';
-import a from './exercise4.js';
+// import a from './exercise4.js';
 // import a from './text.js';
 // import a from './moreCSS.js';
