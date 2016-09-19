@@ -1,0 +1,3 @@
+rootProject.name = 'l6_stock'
+
+include ':app'
