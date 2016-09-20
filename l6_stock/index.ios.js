@@ -1,1 +1,1 @@
-import index from './step1DraftUI/index.js';
+import index from './index.js';

@@ -1,16 +1,26 @@
+
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity
 } from 'react-native';
 
 class StockButton extends Component {
   render() {
+    console.log(this.props.name); //SET
+    console.log(this.props.code); //INDEXBKK:SET
+    console.log(this.props.onPress); // [Function]
+
     return (
-      <TouchableOpacity style={styles.button} onPress={() => {this.props.onPress(this.props.name, this.props.code)}}>
+      <TouchableOpacity
+      style={styles.button}
+        onPress={() => {
+          this.props.onPress(
+             this.props.name,
+             this.props.code
+          )
+        }}>
         <Text>{this.props.name}</Text>
       </TouchableOpacity>
     );
