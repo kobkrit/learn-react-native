@@ -33,8 +33,8 @@ class l7_movie extends Component {
           renderScene={
             (route, navigator) => {
               switch (route.index) {
-                case 0: return (<ListScreen navigator={navigator} route={routes[route.index]}></ListScreen>);
-                case 1: return (<DetailScreen navigator={navigator} route={routes[route.index]}></DetailScreen>);
+                case 0: return (<ListScreen navigator={navigator} route={routes[route.index]} {...route.passProps}></ListScreen>);
+                case 1: return (<DetailScreen navigator={navigator} route={routes[route.index]} {...route.passProps}></DetailScreen>);
               }
             }
           }
