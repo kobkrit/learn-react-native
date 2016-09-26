@@ -4,44 +4,33 @@ import StockButton from './StockButton.js';
 import API from './api.js';
 
 class l6_stock extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
+    this.state = {stockName: 'SET', stockIndex:'0.00', stockChangeRaw:'+0.00', stockChangePercent:'+0.00'};
     this.changeIndex = this.changeIndex.bind(this);
-    this.state = {
-      stockName: 'SET',
-      stockCode: 'INDEXBKK:SET',
-      stockIndex: '0.00',
-      stockChangeRaw: '+0.00',
-      stockChangePercent: '0.00%'
-    };
     this.changeIndex('SET', 'INDEXBKK:SET');
   }
 
   changeIndex(stockName, stockCode){
-    API(stockCode).then((data)=>{
-      this.setState({...data, stockName, stockCode});
+    API(stockCode).then((data) => {
+      console.log(data);
+      this.setState({...data, stockName});
     });
   }
 
-  render() {
-    let colorStyle = (this.state.stockChangeRaw && this.state.stockChangeRaw[0] == '+')
-      ? styles.green
-      : styles.red;
+  render(){
+    let style = styles.red;
+    if (this.state.stockChangeRaw[0] == '+'){
+      style = styles.green;
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.stockName}>
-            {this.state.stockName}
-          </Text>
-          <Text style={styles.stockIndex}>
-            {this.state.stockIndex}
-          </Text>
-          <Text style={[styles.stockChange, colorStyle]}>
-            {this.state.stockChangeRaw}
-            ({this.state.stockChangePercent})
-          </Text>
+          <Text style={styles.stockName}>{this.state.stockName}</Text>
+          <Text style={styles.stockIndex}>{this.state.stockIndex}</Text>
+          <Text style={[styles.stockChange, style]}>{this.state.stockChangeRaw} ({this.state.stockChangePercent})</Text>
         </View>
-
         <View style={styles.footer}>
           <StockButton name="SET" code="INDEXBKK:SET" onPress={this.changeIndex}/>
           <StockButton name="S&P" code="INDEXSP:.INX" onPress={this.changeIndex}/>
@@ -54,49 +43,31 @@ class l6_stock extends Component {
           <StockButton name="IPC MEXICO" code="INDEXBMV:ME" onPress={this.changeIndex}/>
         </View>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
+  stockName: {fontSize: 40},
+  stockIndex: {fontSize: 80},
+  stockChange: {fontSize: 40},
+  container:{
+    flex:1
   },
-  header: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  header:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
   },
-  footer: {
+  footer:{
+    flex:1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexWrap: 'wrap'
   },
-  stockName: {
-    fontSize: 30
-  },
-  stockIndex: {
-    fontSize: 80
-  },
-  stockChange: {
-    fontSize: 40
-  },
-  button: {
-    margin: 10,
-    borderWidth: 1,
-    width: 100,
-    height: 50,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightgray'
-  },
-  red: {
+  red:{
     color: 'red'
   },
-  green: {
+  green:{
     color: 'green'
   }
 });

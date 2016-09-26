@@ -20,15 +20,70 @@ class Stopwatch extends Component {
       laps: [], //Array from lap records
     };
     this.handleStartPress = this.handleStartPress.bind(this);
+    this.startStopButton = this.startStopButton.bind(this);
+    this.handleLapPress = this.handleLapPress.bind(this);
+  }
+
+  handleLapPress(){
+    let laps = this.state.laps;
+    this.setState({
+      laps: [...laps, this.state.timeElapsed],
+      timeElapsed: new Date()
+    });
+    console.log(this.state);
   }
 
   handleStartPress(){
     console.log("handleStartPressed");
-    this.setState({startTime: new Date()});
 
-    setInterval(()=>{
+    if (this.state.running){ //Going to stop case
+      clearInterval(this.interval);
+      this.setState({running: false});
+      return;
+    }
+
+    //Going to start case
+    this.setState({startTime: new Date(), running: true});
+
+    this.interval = setInterval(()=>{
       this.setState({timeElapsed: new Date() - this.state.startTime})
     }, 30);
+  }
+
+  startStopButton(){
+    let style = (this.state.running)? styles.stopButton : styles.startButton;
+    return (
+      <TouchableHighlight style={[styles.button, style]} underlayColor='gray' onPress={this.handleStartPress}>
+        <Text style={styles.buttonText}>{this.state.running?'Stop':'Start'}</Text>
+      </TouchableHighlight>
+    );
+  }
+
+  lapButton(){
+    return (
+      <TouchableHighlight style={styles.button} onPress={this.handleLapPress} underlayColor='gray'>
+        <Text style={styles.buttonText}>Lap</Text>
+      </TouchableHighlight>
+    );
+  }
+
+  laps(){
+    return(
+    <View>
+        {this.state.laps.map((timeElapsed, i)=>{
+          return (
+          <View key={i} style={styles.lap}>
+            <Text style={styles.lapText}>
+              Lap {i+1}
+            </Text>
+            <Text style={styles.lapText}>
+              {formatTime(timeElapsed)}
+            </Text>
+          </View>
+          );
+        })}
+    </View>
+    );
   }
 
   render(){
@@ -40,32 +95,12 @@ class Stopwatch extends Component {
           </Text>
         </View>
         <View style={styles.buttonWrapper}>
-          <TouchableHighlight style={styles.button} underlayColor='gray'>
-            <Text style={styles.buttonText}>Lap</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} underlayColor='gray' onPress={this.handleStartPress}>
-            <Text style={styles.buttonText}>Start</Text>
-          </TouchableHighlight>
+          {this.lapButton()}
+          {this.startStopButton()}
         </View>
       </View>
       <View style={styles.footer}>
-        <View style={styles.lap}>
-          <Text style={styles.lapText}>
-            Lap #1
-          </Text>
-          <Text style={styles.lapText}>
-            00:00.00
-          </Text>
-        </View>
-        <View style={styles.lap}>
-          <Text style={styles.lapText}>
-            Lap #2
-          </Text>
-          <Text style={styles.lapText}>
-            00:00.00
-          </Text>
-        </View>
-
+        {this.laps()}
       </View>
     </View>
   }
@@ -116,6 +151,12 @@ const styles = StyleSheet.create({
   },
   footer:{
     flex:1
+  },
+  startButton:{
+    borderColor: 'green'
+  },
+  stopButton:{
+    borderColor: 'red'
   }
 });
 
