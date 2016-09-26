@@ -1,0 +1,3 @@
+rootProject.name = 'l7_movie'
+
+include ':app'
