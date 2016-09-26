@@ -35,15 +35,27 @@ class l7_movie extends Component {
               <Text>Hello {route.title}!</Text>
             </TouchableHighlight>
         }
+        configureScene={
+          (route, routeStack) =>
+            Navigator.SceneConfigs.FloatFromBottom
+        }
         navigationBar={
          <Navigator.NavigationBar
            routeMapper={{
-             LeftButton: (route, navigator, index, navState) =>
-              { return (<Text>Cancel</Text>); },
+             LeftButton: (route, navigator, index, navState) => {
+               if (route.index == 0){
+                 return null;
+               }
+               return (
+                 <TouchableHighlight onPress={()=>navigator.pop()}>
+                   <Text>Back</Text>
+                 </TouchableHighlight>
+               )
+             },
              RightButton: (route, navigator, index, navState) =>
                { return (<Text>Done</Text>); },
              Title: (route, navigator, index, navState) =>
-               { return (<Text>Awesome Nav Bar</Text>); },
+               { return (<Text>{route.title}</Text>); },
            }}
            style={{backgroundColor: 'gray'}}
          />
