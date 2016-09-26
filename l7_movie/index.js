@@ -5,14 +5,14 @@
  */
 
 import React, {Component} from 'react';
-import {Navigator, TouchableHighlight, AppRegistry, StyleSheet, Text, View} from 'react-native';
+import {Navigator, StatusBar, TouchableHighlight, AppRegistry, StyleSheet, Text, View} from 'react-native';
 
 const routes = [
   {
-    title: 'First Scene',
+    title: 'Movie Explorer',
     index: 0
   }, {
-    title: 'Second Scene',
+    title: 'Movie Detail',
     index: 1
   }
 ]
@@ -20,66 +20,76 @@ const routes = [
 class l7_movie extends Component {
   render() {
     return (
-      <Navigator style={styles.container}
-        initialRoute={routes[0]}
-        initialRouteStack={routes}
-        renderScene={
-          (route, navigator) =>
-            <TouchableHighlight onPress={() => {
-                if (route.index == 0) {
-                  navigator.push(routes[1]);
-                } else {
-                  navigator.pop();
-                }
-              }}>
-              <Text>Hello {route.title}!</Text>
-            </TouchableHighlight>
+      <View style={styles.container}>
+        <StatusBar
+          backgroundColor="darkred"
+          barStyle="light-content"
+        />
+        <Navigator
+          initialRoute={routes[0]}
+          initialRouteStack={routes}
+          renderScene={
+            (route, navigator) =>
+            <View style={{padding: 100}}>
+              <TouchableHighlight onPress={() => {
+                  if (route.index == 0) {
+                    navigator.push(routes[1]);
+                  } else {
+                    navigator.pop();
+                  }
+                }}>
+                <Text style={styles.titleText}>Hello {route.title} World!!</Text>
+              </TouchableHighlight>
+            </View>
+
+          }
+          configureScene={
+            (route, routeStack) =>
+              Navigator.SceneConfigs.FloatFromBottom
+          }
+          navigationBar={
+           <Navigator.NavigationBar
+             routeMapper={{
+               LeftButton: (route, navigator, index, navState) => {
+                 if (route.index == 0){
+                   return null;
+                 }
+                 return (
+                   <TouchableHighlight onPress={()=>navigator.pop()}>
+                     <Text style={styles.navigationBarText}>Back</Text>
+                   </TouchableHighlight>
+                 )
+               },
+               RightButton: (route, navigator, index, navState) => { return null; },
+               Title: (route, navigator, index, navState) =>
+                 { return (<Text style={[styles.navigationBarText, styles.titleText]}>{route.title}</Text>); },
+             }}
+             style={styles.navigationBar}
+           />
         }
-        configureScene={
-          (route, routeStack) =>
-            Navigator.SceneConfigs.FloatFromBottom
-        }
-        navigationBar={
-         <Navigator.NavigationBar
-           routeMapper={{
-             LeftButton: (route, navigator, index, navState) => {
-               if (route.index == 0){
-                 return null;
-               }
-               return (
-                 <TouchableHighlight onPress={()=>navigator.pop()}>
-                   <Text>Back</Text>
-                 </TouchableHighlight>
-               )
-             },
-             RightButton: (route, navigator, index, navState) =>
-               { return (<Text>Done</Text>); },
-             Title: (route, navigator, index, navState) =>
-               { return (<Text>{route.title}</Text>); },
-           }}
-           style={{backgroundColor: 'gray'}}
-         />
-      }
-    />
+      />
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 100
+    flex: 1
   },
-  welcome: {
+  navigationBar:{
+    backgroundColor: 'darkred',
+  },
+  navigationBarText:{
+    color: 'white',
+    padding: 10,
+    fontSize: 15
+  },
+  titleText:{
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+    paddingTop:5
   }
+
 });
 
 AppRegistry.registerComponent('l7_movie', () => l7_movie);
