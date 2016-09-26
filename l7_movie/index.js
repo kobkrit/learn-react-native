@@ -6,6 +6,8 @@
 
 import React, {Component} from 'react';
 import {Navigator, StatusBar, TouchableHighlight, AppRegistry, StyleSheet, Text, View} from 'react-native';
+import ListScreen from './listScreen.js';
+import DetailScreen from './detailScreen.js';
 
 const routes = [
   {
@@ -29,19 +31,12 @@ class l7_movie extends Component {
           initialRoute={routes[0]}
           initialRouteStack={routes}
           renderScene={
-            (route, navigator) =>
-            <View style={{padding: 100}}>
-              <TouchableHighlight onPress={() => {
-                  if (route.index == 0) {
-                    navigator.push(routes[1]);
-                  } else {
-                    navigator.pop();
-                  }
-                }}>
-                <Text style={styles.titleText}>Hello {route.title} World!!</Text>
-              </TouchableHighlight>
-            </View>
-
+            (route, navigator) => {
+              switch (route.index) {
+                case 0: return (<ListScreen navigator={navigator} route={routes[route.index]}></ListScreen>);
+                case 1: return (<DetailScreen navigator={navigator} route={routes[route.index]}></DetailScreen>);
+              }
+            }
           }
           configureScene={
             (route, routeStack) =>
@@ -62,7 +57,7 @@ class l7_movie extends Component {
                },
                RightButton: (route, navigator, index, navState) => { return null; },
                Title: (route, navigator, index, navState) =>
-                 { return (<Text style={[styles.navigationBarText, styles.titleText]}>{route.title}</Text>); },
+                 { return (<Text style={[styles.navigationBarText, styles.titleText]}>{routes[route.index].title}</Text>); },
              }}
              style={styles.navigationBar}
            />
