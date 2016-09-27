@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, AppRegistry, ListView,
-  StyleSheet, Text, View} from 'react-native';
+import {TouchableHighlight, AppRegistry, ListView, StyleSheet, Text, View} from 'react-native';
+import api from './api';
 
 class ListScreen extends Component {
- constructor() {
+  constructor() {
    super();
    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
    this.state = {
-     dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row 3', 'row 4']),
+     dataSource: ds.cloneWithRows([]),
    };
- }
+   api.search('batman').then((data)=>{
+     this.setState({dataSource: ds.cloneWithRows(data)});
+   });
+  }
 
   render() {
     return (
       <ListView style={styles.container}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <Text>{rowData}</Text>}
+        renderRow={(rowData) => {
+          return (
+            <Text>{rowData.Title}</Text>
+          );
+        }}
         renderSeparator={(sectionID, rowID, adjacentRowHighlighted) =>
           <View key={rowID} style={{height:1, backgroundColor: 'lightgray'}}/>
         }
@@ -23,7 +30,6 @@ class ListScreen extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container:{
     padding: 10,
