@@ -5,7 +5,8 @@
  */
 
 import React, {Component} from 'react';
-import {Navigator, StatusBar, TouchableHighlight, AppRegistry, StyleSheet, Text, View} from 'react-native';
+import {Navigator, StatusBar, TouchableHighlight,
+   AppRegistry, StyleSheet, Text, View} from 'react-native';
 import ListScreen from './listScreen.js';
 import DetailScreen from './detailScreen.js';
 
