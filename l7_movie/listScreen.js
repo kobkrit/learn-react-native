@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, AppRegistry, ListView, StyleSheet, Text, View, Image} from 'react-native';
+import {TouchableOpacity, AppRegistry, ListView, StyleSheet, Text, View, Image} from 'react-native';
 import api from './api';
 
 class ListScreen extends Component {
@@ -9,7 +9,7 @@ class ListScreen extends Component {
    this.state = {
      dataSource: ds.cloneWithRows([]),
    };
-   api.search('harry').then((data)=>{
+   api.search('batman').then((data)=>{
      this.setState({dataSource: ds.cloneWithRows(data)});
    });
   }
@@ -18,22 +18,23 @@ class ListScreen extends Component {
     return (
       <ListView style={styles.container}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => {
-          return (
-            <View style={styles.row}>
-                <View style={{flex:3}}>
-                  <Image style={styles.image} source={{uri: rowData.Poster}}/>
-                </View>
-                <View style={{flex:10, padding: 10}}>
-                  <Text style={styles.title}>{rowData.Title} ({rowData.Year})</Text>
-                </View>
-                <View style={{flex:1, justifyContent:'center'}}>
-                  <Text style={styles.title}>></Text>
-                </View>
-            </View>
-
-          );
-        }}
+        enableEmptySections={true}
+        renderRow={(rowData) =>
+            <TouchableOpacity onPress={()=> this.props.navigator.push({index: 1,
+               passProps:{imdbID: rowData.imdbID}})}>
+              <View style={styles.row}>
+                  <View style={{flex:3}}>
+                    <Image style={styles.image} source={{uri: rowData.Poster}}/>
+                  </View>
+                  <View style={{flex:10, padding: 10}}>
+                    <Text style={styles.title}>{rowData.Title} ({rowData.Year})</Text>
+                  </View>
+                  <View style={{flex:1, justifyContent:'center'}}>
+                    <Text style={styles.title}>></Text>
+                  </View>
+              </View>
+            </TouchableOpacity>
+        }
         renderSeparator={(sectionID, rowID, adjacentRowHighlighted) =>
           <View key={rowID} style={{height:1, backgroundColor: 'lightgray'}}/>
         }

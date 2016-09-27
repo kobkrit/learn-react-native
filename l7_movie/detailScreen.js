@@ -8,7 +8,7 @@ class DetailScreen extends Component {
       <View style={{padding: 20, paddingTop:100}}>
         <Text style={{fontSize:30}}>
           Detail Screen:
-          {this.props.movieName}
+          {this.props.imdbID}
         </Text>
       </View>
     );
