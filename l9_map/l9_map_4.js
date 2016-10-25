@@ -31,7 +31,7 @@ export default class l9_map extends Component {
     return (
       <View style={styles.container}>
         <MapView style={styles.map}
-          mapType="standard"
+          mapType="terrain"
           showsUserLocation={true}
           followsUserLocation={true}
           showsCompass={false}
