@@ -24,11 +24,13 @@ export default class L10_CameraRollPicker extends Component {
 
   putImageIntoList(){
     this.setState({
-      ['star'+this.state.value]: [...this.state['star'+this.state.value], this.state.image],
+      ['star'+this.state.value]:
+       [...this.state['star'+this.state.value], this.state.image],
       modalVisible:false,
       value:3
     });
   }
+
 
   takePhoto(){
     ImagePicker.launchCamera({noData: true }, this.setImage);
@@ -64,43 +66,49 @@ export default class L10_CameraRollPicker extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Modal
-         animationType={"slide"}
-         transparent={true}
-         visible={this.state.modalVisible}
-         onRequestClose={() => {alert("Modal has been closed.")}}
-         >
-        <View style={styles.modal}>
-         <View>
-           <Text>Please select coolness of this picture.</Text>
-           <Text style={styles.headerText}>{this.state.value}</Text>
-           <Slider maximumValue={3} minimumValue={1} step={1} value={3}
-            onValueChange={(value) => this.setState({value: value})}></Slider>
-           <TouchableOpacity style={styles.submitButton} onPress={() => {
-             this.putImageIntoList();
-           }}>
-             <Text style={styles.buttonText}>OK</Text>
-           </TouchableOpacity>
+      <Modal
+       animationType={"slide"}
+       transparent={true}
+       visible={this.state.modalVisible}
+       onRequestClose={() => {alert("Modal has been closed.")}}
+       >
+      <View style={styles.modal}>
+       <View>
+        <TouchableOpacity style={styles.closeButton}
+          onPress={() => this.setState({modalVisible: false})}>
+          <Text>X</Text>
+        </TouchableOpacity>
+         <Text>Please select coolness of this picture.</Text>
+         <Text style={styles.headerText}>{this.state.value}</Text>
+         <Slider maximumValue={3} minimumValue={1} step={1} value={3}
+          onValueChange={(value) => this.setState({value: value})}></Slider>
+         <TouchableOpacity style={styles.submitButton} onPress={() => {
+           this.putImageIntoList();
+         }}>
+           <Text style={styles.buttonText}>OK</Text>
+         </TouchableOpacity>
+       </View>
+      </View>
+      </Modal>
 
-         </View>
+        <View style={{flex: 1, paddingTop:22}}>
+          <View style={styles.title}><Text style={styles.titleText}>3 Stars</Text></View>
+          <View style={styles.row}>
+            {this.state.star3.map((source, i)=> <Image key={"star3-"+i}
+             style={styles.image} source={source}></Image>)}
+          </View>
+          <View style={styles.title}><Text style={styles.titleText}>2 Stars</Text></View>
+          <View style={styles.row}>
+            {this.state.star2.map((source, i)=> <Image  key={"star2-"+i}
+             style={styles.image} source={source}></Image>)}
+          </View>
+          <View style={styles.title}><Text style={styles.titleText}>1 Star</Text></View>
+          <View style={styles.row}>
+            {this.state.star1.map((source, i)=> <Image  key={"star1-"+i}
+             style={styles.image} source={source}></Image>)}
+          </View>
         </View>
-       </Modal>
-
-        <View style={{flex: 2, paddingTop:22}}>
-          <Text>3 Stars</Text>
-          <View style={{flexDirection:'row', flexWrap: 'wrap'}}>
-            {this.state.star3.map((source)=> <Image style={styles.image} source={source}></Image>)}
-          </View>
-          <Text>2 Stars</Text>
-          <View style={{flexDirection:'row', flexWrap: 'wrap'}}>
-            {this.state.star2.map((source)=> <Image style={styles.image} source={source}></Image>)}
-          </View>
-          <Text>1 Stars</Text>
-          <View style={{flexDirection:'row', flexWrap: 'wrap'}}>
-            {this.state.star1.map((source)=> <Image style={styles.image} source={source}></Image>)}
-          </View>
-        </View>
-        <View style={styles.container}>
+        <View style={styles.rowCenter}>
         <TouchableOpacity style={styles.button} onPress={this.takePhoto}>
           <Text style={styles.buttonText}>Camera</Text>
         </TouchableOpacity>
@@ -114,8 +122,11 @@ export default class L10_CameraRollPicker extends Component {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
+  row:{
+    flexDirection:'row',
+    flexWrap: 'wrap'
+  },
+  rowCenter:{
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
@@ -137,9 +148,9 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   modal:{
-    height: 160,
+    height: 200,
     width: 300,
-    marginTop: 250,
+    marginTop: 200,
     padding: 10,
     alignSelf: 'center',
     backgroundColor:'lightblue',
@@ -147,6 +158,9 @@ const styles = StyleSheet.create({
     borderRadius:10,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  closeButton:{
+    alignSelf: 'flex-end'
   },
   submitButton:{
     alignSelf: 'center',
@@ -161,6 +175,13 @@ const styles = StyleSheet.create({
   headerText:{
     fontSize: 20,
     alignSelf: 'center'
+  },
+  title:{
+    backgroundColor:'gray',
+    padding:5
+  },
+  titleText:{
+    color: 'white'
   }
 });
 
