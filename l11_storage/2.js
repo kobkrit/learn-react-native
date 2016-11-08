@@ -5,7 +5,8 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, AsyncStorage, TextInput} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, AsyncStorage, TextInput}
+from 'react-native';
 
 
 export default class l11_storage extends Component {
