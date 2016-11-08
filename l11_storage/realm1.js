@@ -1,6 +1,6 @@
 /**
  * realm1.js
- * Realm Database Example 
+ * Realm Database Example
 * @flow
  */
 
@@ -29,7 +29,8 @@ export default class l11_storage extends Component {
             name: 'string'
           }
         }
-      ]
+      ],
+      schemaVersion: 3
     });
 
     realm.write(() => {
@@ -39,7 +40,11 @@ export default class l11_storage extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.instructions}>
-          Count of Dogs in Realm: {realm.objects('Dog').length}
+          {realm.objects('Dog').map((dog, i)=>(
+            <Text style={styles.instructions}>
+              Dog#{i}: {dog.name}{'\n'}
+            </Text>
+          ))}
         </Text>
       </View>
     );
