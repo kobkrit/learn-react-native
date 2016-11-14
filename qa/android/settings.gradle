@@ -1,0 +1,3 @@
+rootProject.name = 'qa'
+
+include ':app'

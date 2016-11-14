@@ -5,18 +5,28 @@ import api from './api';
 class ListScreen extends Component {
   constructor(props) {
    super(props);
-   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+   var getSectionData = (dataBlob, sectionID) => {
+     if (sectionID == 0){
+       return "A";
+     }
+     return "B";
+   };
+   const ds = new ListView.DataSource({
+     rowHasChanged: (r1, r2) => r1 !== r2},
+     getSectionData: getSectionData
+   );
    this.state = {
      dataSource: ds.cloneWithRows([]),
    };
    api.search('batman').then((data)=>{
-     this.setState({dataSource: ds.cloneWithRows(data)});
+     this.setState({dataSource: ds.cloneWithRowsAndSections(data, sectionID)});
    });
   }
 
   render() {
     return (
       <ListView style={styles.container}
+
         dataSource={this.state.dataSource}
         enableEmptySections={true}
         renderRow={(rowData) =>
