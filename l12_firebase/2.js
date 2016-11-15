@@ -45,7 +45,7 @@ export default class l12_firebase extends Component {
       this.getNumberOfUserOnlineOnceAndIncreaseBy1();
     }else if(AppState.currentState == 'inactive'){
       BackgroundTimer.setTimeout(() => {
-        //Doing some background operation here.
+        this.decreaseNumberOfUserOnline()
       }, 0);
     }
   }

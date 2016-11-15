@@ -35,6 +35,11 @@ export default class l12_firebase extends Component {
   }
 
   writeDB(){
+    firebase.database().ref('notes/2/3/4').set(55);
+    firebase.database().ref('notes/2/3').set({4:55});
+
+    firebase.database().ref('notes/3').set("Sometext");
+    firebase.database().ref('notes/5').set([1,2,3,4,5]);
     firebase.database().ref('notes/1').set({
       text: 'Hello Text!'
     });
