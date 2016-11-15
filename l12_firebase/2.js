@@ -44,7 +44,9 @@ export default class l12_firebase extends Component {
     if (AppState.currentState == 'active'){
       this.getNumberOfUserOnlineOnceAndIncreaseBy1();
     }else if(AppState.currentState == 'inactive'){
-      BackgroundTimer.setTimeout(() => this.decreaseNumberOfUserOnline(), 0);
+      BackgroundTimer.setTimeout(() => {
+        //Doing some background operation here.
+      }, 0);
     }
   }
 
@@ -53,19 +55,6 @@ export default class l12_firebase extends Component {
       this.userOnlineRef.set(snapshot.val()+1);
     });
   }
-
-  getNumberOfUserOnlineOnceAndIncreaseBy1ByTransaction(){
-    this.userOnlineRef.transaction(function(currentUserOnline) {
-      return currentUserOnline + 1;
-    });
-  }
-
-  decreaseNumberOfUserOnlineByTransaction(){
-    this.userOnlineRef.transaction(function(currentUserOnline) {
-      return currentUserOnline>0?currentUserOnline-1:0;
-    });
-  }
-
 
   decreaseNumberOfUserOnline(){
     this.userOnlineRef.once('value', (snapshot) =>{
