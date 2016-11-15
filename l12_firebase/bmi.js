@@ -63,7 +63,8 @@ class BMI extends Component {
       <View style={styles.container}>
         <View style={styles.group}>
           <Text style={styles.title}>Weight (KG)</Text>
-          <TextInput style={styles.input} keyboardType='numeric' value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
+          <TextInput style={styles.input} keyboardType='numeric'
+            value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
         </View>
         <View style={styles.group}>
           <Text style={styles.title}>Height (CM)</Text>
