@@ -42,9 +42,9 @@ export default class l12_firebase extends Component {
   handleAppStateChange(){
     console.log("AppState", AppState.currentState);
     if (AppState.currentState == 'active'){
-      this.getNumberOfUserOnlineOnceAndIncreaseBy1();
+      this.getNumberOfUserOnlineOnceAndIncreaseBy1ByTransaction();
     }else if(AppState.currentState == 'inactive'){
-      BackgroundTimer.setTimeout(() => this.decreaseNumberOfUserOnline(), 0);
+      BackgroundTimer.setTimeout(() => this.decreaseNumberOfUserOnlineByTransaction(), 0);
     }
   }
 
@@ -60,18 +60,18 @@ export default class l12_firebase extends Component {
     });
   }
 
+  decreaseNumberOfUserOnline(){
+    this.userOnlineRef.once('value', (snapshot) =>{
+      this.userOnlineRef.set(snapshot.val()-1);
+    });
+  }
+
   decreaseNumberOfUserOnlineByTransaction(){
     this.userOnlineRef.transaction(function(currentUserOnline) {
       return currentUserOnline>0?currentUserOnline-1:0;
     });
   }
 
-
-  decreaseNumberOfUserOnline(){
-    this.userOnlineRef.once('value', (snapshot) =>{
-      this.userOnlineRef.set(snapshot.val()-1);
-    });
-  }
 
   listeningForNumberOfUserOnline(){
     this.userOnlineRef.on('value', (snapshot) =>{
@@ -82,7 +82,7 @@ export default class l12_firebase extends Component {
 
   componentDidMount(){
     this.listeningForNumberOfUserOnline();
-    this.getNumberOfUserOnlineOnceAndIncreaseBy1();
+    this.getNumberOfUserOnlineOnceAndIncreaseBy1ByTransaction();
   }
 
   sendChat(){
