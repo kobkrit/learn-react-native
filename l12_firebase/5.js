@@ -79,7 +79,9 @@ export default class l12_firebase extends Component {
   listeningForChatChange() {
     this.chatsRef.on('value', (snapshot) => {
       console.log("Chats change:", snapshot.val());
-      this.setState({chats: snapshot.val() || []});
+      this.setState({
+        chats: snapshot.val() || []
+      });
     })
   }
 
@@ -95,50 +97,46 @@ export default class l12_firebase extends Component {
       if (!chats) {
         chats = [];
       }
-      chats.push({name: this.state.name, chat: this.state.chat,
-         when: new Date().getTime()});
+      chats.push({name: this.state.name, chat: this.state.chat, when: new Date().getTime()});
       this.setState({chat: ""});
       return chats;
     });
   }
 
-render() {
-  return (
-    <View style={styles.container}>
-      <Modal animationType={"slide"} transparent={true}
-        visible={this.state.modalVisible}>
-        <View style={styles.modal}>
-          <TouchableOpacity style={styles.closeButton}
-            onPress={() => this.setState({modalVisible: false})}>
-            <Text>X</Text>
-          </TouchableOpacity>
-          <Text>Please input your name.</Text>
-          <TextInput style={styles.textInput} value={this.state.name}
-            onChangeText={(t) => this.setState({name: t})}></TextInput>
-          <TouchableOpacity style={styles.submitButton} onPress={() => {
-            this.setState({modalVisible: false});
-          }}>
-            <Text style={styles.buttonText}>OK</Text>
-          </TouchableOpacity>
+  render() {
+    return (
+      <View style={styles.container}>
+        <Modal animationType={"slide"} transparent={true} visible={this.state.modalVisible}>
+          <View style={styles.modal}>
+            <TouchableOpacity style={styles.closeButton} onPress={() => this.setState({modalVisible: false})}>
+              <Text>X</Text>
+            </TouchableOpacity>
+            <Text>Please input your name.</Text>
+            <TextInput style={styles.textInput} value={this.state.name} onChangeText={(t) => this.setState({name: t})}></TextInput>
+            <TouchableOpacity style={styles.submitButton} onPress={() => {
+              this.setState({modalVisible: false});
+            }}>
+              <Text style={styles.buttonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <View style={styles.header}>
+          <Text style={styles.labelText}>
+            Hello {this.state.name}! #User online: {this.state.userOnline}
+          </Text>
         </View>
-      </Modal>
-<View style={styles.header}>
-  <Text style={styles.labelText}>
-    Hello {this.state.name}! #User online: {this.state.userOnline}
-  </Text>
-</View>
-<View style={styles.content}>
-  {this.state.chats.map((obj, i) =>
-    <View key={i} style={styles.chatContainer}>
-      <View style={styles.chatMeta}>
-        <Text style={styles.bold}>{obj.name || "Anonymous"}</Text>
-        <Text> ({moment(obj.when).fromNow()})</Text>
-      </View>
-      <View style={styles.chat}>
-        <Text style={styles.chatText}>{obj.chat}</Text>
-      </View>
-  </View>)}
-</View>
+        <View style={styles.content}>
+          {this.state.chats.map((obj, i) => <View key={i} style={styles.chatContainer}>
+            <View style={styles.chatMeta}>
+              <Text style={styles.bold}>{obj.name || "Anonymous"}</Text>
+              <Text>
+                ({moment(obj.when).fromNow()})</Text>
+            </View>
+            <View style={styles.chat}>
+              <Text style={styles.chatText}>{obj.chat}</Text>
+            </View>
+          </View>)}
+        </View>
         <View style={styles.footer}>
           <TextInput style={styles.textInput} value={this.state.chat} onChangeText={(t) => this.setState({chat: t})}></TextInput>
           <TouchableOpacity style={styles.button} onPress={this.sendChat}>
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   textInput: {
-    flex:1,
+    flex: 1,
     height: 50,
     width: 200,
     padding: 5,
@@ -232,7 +230,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10
   },
-  bold:{
+  bold: {
     fontWeight: 'bold'
   }
 });

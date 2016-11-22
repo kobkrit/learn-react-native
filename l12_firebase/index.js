@@ -1,1 +1,1 @@
-import a from './5.js';
+import a from './6.js';
