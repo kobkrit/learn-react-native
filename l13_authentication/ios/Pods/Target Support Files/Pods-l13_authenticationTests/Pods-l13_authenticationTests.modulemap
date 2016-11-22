@@ -1,0 +1,6 @@
+framework module Pods_l13_authenticationTests {
+  umbrella header "Pods-l13_authenticationTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

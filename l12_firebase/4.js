@@ -84,6 +84,18 @@ export default class l12_firebase extends Component {
     this.listeningForChatChange();
   }
 
+  removeChat(i){
+    console.log("RemoveChat", i);
+    this.chatsRef.transaction((chats)=>{
+      if (!chats){
+        chats = [];
+      }
+      chats.splice(i, 1);
+      this.setState({chat:""});
+      return chats;
+    });
+  }
+
   sendChat(){
     console.log(this.state.chat);
     this.chatsRef.transaction((chats)=>{
@@ -104,7 +116,8 @@ export default class l12_firebase extends Component {
           </Text>
         </View>
         <View style={styles.content}>
-          {this.state.chats.map((chat,i)=><Text key={i}>{chat}</Text>)}
+          {this.state.chats ? this.state.chats.map((chat,i) =>
+            <View><Text key={i}>{chat}</Text><TouchableOpacity onPress={()=>this.removeChat(i)}><Text> X</Text></TouchableOpacity></View>):null}
         </View>
         <View style={styles.footer}>
           <TextInput style={styles.textInput}

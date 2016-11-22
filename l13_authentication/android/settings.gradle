@@ -1,0 +1,5 @@
+rootProject.name = 'l13_authentication'
+
+include ':app'
+include ':react-native-firestack'
+project(':react-native-firestack').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-firestack/android')

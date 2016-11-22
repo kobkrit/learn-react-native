@@ -1,0 +1,6 @@
+framework module Pods_l12_firebase {
+  umbrella header "Pods-l12_firebase-umbrella.h"
+
+  export *
+  module * { export * }
+}
