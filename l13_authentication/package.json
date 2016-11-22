@@ -7,8 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^3.6.1",
+    "moment": "^2.16.0",
     "react": "15.3.2",
     "react-native": "0.37.0",
+    "react-native-background-timer": "^0.1.3",
     "react-native-firestack": "^2.3.3"
   },
   "jest": {

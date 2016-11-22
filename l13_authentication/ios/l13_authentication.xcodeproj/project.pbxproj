@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -27,6 +26,7 @@
 		7F478FB204D64A24838566E0 /* libFirestack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A5067D8A834F1B84B31D87 /* libFirestack.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		885FABB1D320CD38D218F453 /* Pods_l13_authentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E89697B6C9535918107019 /* Pods_l13_authentication.framework */; };
+		0959D43EE8C44AED82255525 /* libRNBackgroundTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8160154D309D40A4B6C18B81 /* libRNBackgroundTimer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +196,8 @@
 		C464606C13DB3CF96BCC5052 /* Pods-l13_authentication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-l13_authentication.debug.xcconfig"; path = "Pods/Target Support Files/Pods-l13_authentication/Pods-l13_authentication.debug.xcconfig"; sourceTree = "<group>"; };
 		F013E39BA5334599A27E90D3 /* Firestack.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Firestack.xcodeproj; path = "../node_modules/react-native-firestack/ios/Firestack.xcodeproj"; sourceTree = "<group>"; };
 		F5E89697B6C9535918107019 /* Pods_l13_authentication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_l13_authentication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46B0C55D84AB4804BCC4440D /* RNBackgroundTimer.xcodeproj */ = {isa = PBXFileReference; name = "RNBackgroundTimer.xcodeproj"; path = "../node_modules/react-native-background-timer/ios/RNBackgroundTimer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		8160154D309D40A4B6C18B81 /* libRNBackgroundTimer.a */ = {isa = PBXFileReference; name = "libRNBackgroundTimer.a"; path = "libRNBackgroundTimer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7F478FB204D64A24838566E0 /* libFirestack.a in Frameworks */,
 				885FABB1D320CD38D218F453 /* Pods_l13_authentication.framework in Frameworks */,
+				0959D43EE8C44AED82255525 /* libRNBackgroundTimer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +375,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				F013E39BA5334599A27E90D3 /* Firestack.xcodeproj */,
+				46B0C55D84AB4804BCC4440D /* RNBackgroundTimer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -855,6 +859,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/l13_authentication.app/l13_authentication";
@@ -872,6 +877,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -891,6 +897,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 				);
 				INFOPLIST_FILE = l13_authentication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -916,6 +923,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 				);
 				INFOPLIST_FILE = l13_authentication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -969,6 +977,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1010,6 +1019,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
+					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
